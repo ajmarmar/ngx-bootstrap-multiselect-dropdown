@@ -15,6 +15,9 @@ export class DropdownSettings {
     showDeselectAllBtn: boolean = null;
     showSelectAllBtn: boolean = null;
     btnClasses: string = null;
+    labelSelectedItem: string = '{0} item selected';
+    labelSelectedItems: string = '{0} items selected'; 
+    showSelectedItems: boolean = false;
 
     constructor(settings?: any) {
         if(!settings) return;
@@ -33,5 +36,8 @@ export class DropdownSettings {
         this.btnWidth = settings.btnWidth || this.btnWidth; 
         this.dropdownHeight = settings.dropdownHeight || this.dropdownHeight;
         this.btnClasses = settings.btnClasses;
+        this.labelSelectedItem = settings.labelSelectedItem || this.labelSelectedItem;
+        this.labelSelectedItems = settings.labelSelectedItems || this.labelSelectedItems;
+        this.showSelectedItems = settings.showSelectedItems || this.showSelectedItems;
     }
 }
