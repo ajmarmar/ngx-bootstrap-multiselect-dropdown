@@ -71,9 +71,16 @@ export class NgxBootstrapMultiselectDropdownComponent implements OnInit, Control
 
   // Set text when selecting item from dropdown
   setSelectedText() {
+    //${this.selectedItems.length} item${this.selectedItems.length > 1 ? 's' : ''} selected`
     this.selectedText = this.selectedItems.length 
-      ? `${this.selectedItems.length} item${this.selectedItems.length > 1 ? 's' : ''} selected` 
+      ? (this.innerSettings.showSelectedItems ? this.getSelectedItemsLabel() : this.selectedItems.length > 1 ?  this.innerSettings.labelSelectedItem.replace('{0}', ''+this.selectedItems.length) : this.innerSettings.labelSelectedItem.replace('{0}', '1')  ) 
       : this.innerSettings.noneSelectedBtnText;
+  }
+
+  getSelectedItemsLabel(){
+    let text = '';
+    this.getSelectedItems().forEach(e => text += e[this.innerSettings.dataNameProperty]);
+    return text;
   }
 
   // Toggle dropdown visibility
