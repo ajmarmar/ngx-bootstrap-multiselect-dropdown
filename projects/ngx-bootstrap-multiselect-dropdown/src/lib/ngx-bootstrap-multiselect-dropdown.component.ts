@@ -69,19 +69,20 @@ export class NgxBootstrapMultiselectDropdownComponent implements OnInit, Control
       .slice();
   }
 
-  // Set text when selecting item from dropdown
-  setSelectedText() {
-    //${this.selectedItems.length} item${this.selectedItems.length > 1 ? 's' : ''} selected`
-    this.selectedText = this.selectedItems.length 
-      ? (this.innerSettings.showSelectedItems ? this.getSelectedItemsLabel() : this.selectedItems.length > 1 ?  this.innerSettings.labelSelectedItem.replace('{0}', ''+this.selectedItems.length) : this.innerSettings.labelSelectedItem.replace('{0}', '1')  ) 
+    // Set text when selecting item from dropdown
+    setSelectedText() {
+      this.selectedText = this.selectedItems.length 
+      ? (this.innerSettings.showSelectedItems? this.getSelectedItemsLabel() : (this.selectedItems.length > 1 ?  this.innerSettings.labelSelectedItems.replace('{0}', ''+this.selectedItems.length) : this.innerSettings.labelSelectedItem.replace('{0}', '1')))
       : this.innerSettings.noneSelectedBtnText;
-  }
-
-  getSelectedItemsLabel(){
-    let text = '';
-    this.getSelectedItems().forEach(e => text += e[this.innerSettings.dataNameProperty]);
-    return text;
-  }
+    }
+  
+    getSelectedItemsLabel(){
+      let text = '';
+      this.items
+        .filter(_ => this.selectedItems.findIndex(x => x === _[this.innerSettings.dataIdProperty]) > -1) // Return only items with id values in selectedItems
+        .slice().forEach(e => text += ' ,' + e[this.innerSettings.dataNameProperty]);
+      return text.substr(2);
+    }
 
   // Toggle dropdown visibility
   showDropdown() {
